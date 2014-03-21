@@ -1,0 +1,128 @@
+
+apply plugin: 'cpp'
+
+description 'Hello, Gradle! -- in C++ with all the trimmings.'
+
+model {
+    //
+    // http://www.gradle.org/docs/current/userguide/nativeBinaries.html#native_binaries:variants:w
+    //
+    buildTypes {
+        // default.
+        debug
+        // custom
+        release
+    }
+
+    //
+    // http://www.gradle.org/docs/current/userguide/nativeBinaries.html#native_binaries:platform
+    //
+    platforms {
+        // by default you just get 'current'.
+        // see http://www.gradle.org/docs/current/dsl/org.gradle.nativebinaries.platform.Platform.html#org.gradle.nativebinaries.platform.Platform:architecture
+        // for the valid values. You can even add operating system info, etc.
+
+        x86 {
+            architecture "i386"
+        }
+        x64 {
+            architecture "amd64"
+        }
+    }
+
+    //
+    // http://www.gradle.org/docs/current/userguide/nativeBinaries.html#native_binaries:flavor
+    //
+    flavors {
+        opensource
+        enterprise
+    }
+
+    //
+    // http://www.gradle.org/docs/current/userguide/nativeBinaries.html#native_binaries:tool_chain
+    //
+    /*
+    toolChains {
+    }
+    */
+}
+
+
+executables {
+    main {
+        // If you only want to build this component for certain things.
+        //
+        // targetPlatforms "x86", "x64"
+        // targgetBuildTypes ...
+        // targetFlavors ...
+
+        binaries.all {
+            if (buildType == buildTypes.debug) {
+                cppCompiler.define "DEBUG"
+                if (toolChain in Clang) {
+                    cppCompiler.args "-O0", '-g', '-Wall'
+                }
+                if (toolChain in Gcc) {
+                    cppCompiler.args "-g3", "-Wall", '-Wextra'
+                    //....
+                }
+                if (toolChain in VisualCpp) {
+                    cppCompiler.args "/Od", '/Zi', '/MDd'
+                    // ....
+                }
+                // .....
+            } else if (buildType == buildTypes.release) {
+                cppCompiler.define "NDEBUG"
+                if (toolChain in Clang) {
+                    cppCompiler.args "-O4", 'Wall'
+                }
+                if (toolChain in Gcc) {
+                    cppCompiler.args "-O3", "-Wall"
+                    linker.args "-S"
+                    //....
+                }
+                if (toolChain in VisualCpp) {
+                    cppCompiler.args "/Ox", '/GL', '/MD'
+                    // ....
+                }
+                // .....
+            }
+        }
+    }
+}
+
+
+task buildAllExecutables(description: 'Build all executables') {
+    dependsOn binaries.withType(ExecutableBinary).matching {
+        it.buildable
+    }
+}
+
+
+/*
+ * Set this to the arch your OS supports.
+ * E.g. my test box only has current (64-bit) support.
+ */
+def defaultTargetPlatform = 'x64'
+def defaultInstallTask = 'installX64ReleaseOpensourceMainExecutable'
+
+task build(description: 'Build all executables for default target platform.') {
+    dependsOn binaries.withType(ExecutableBinary).matching {
+        it.buildable && it.targetPlatform == defaultTargetPlatform
+    }
+}
+
+
+task run(type: Exec) {
+    // Find the correct task.
+    binaries.withType(ExecutableBinary) {
+        for (task in it.tasks) {
+            if (task.name == defaultInstallTask) {
+                dependsOn task
+                executable task.runScript
+                break
+            }
+        }
+    }
+}
+
