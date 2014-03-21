@@ -4,6 +4,12 @@ This is a simple git repo showing how to use Gradle to build projects in several
 	1. c/ 		-> C example (minimalist).
 	2. cpp/ 	-> C++ example (advanced).
 
+RESOURCES
+---------
+
+	- [Gradle User Guide](http://www.gradle.org/docs/current/userguide/userguide.html)
+	
+	- [envsetup](https://github.com/Spidey01/envsetup) for shell functions.
 
 UNIX / LINUX / OS X
 -------------------
@@ -17,7 +23,7 @@ WINDOWS
 
 
 
-Example Output
+EXAMPLE OUTPUT
 ==============
 
 	[ terry@centauri ]$ ./gradlew run
