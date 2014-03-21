@@ -1,0 +1,7 @@
+
+description = "Example of Gradle in multiple languages."
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.11'
+}
+
