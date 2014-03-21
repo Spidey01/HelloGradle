@@ -7,9 +7,9 @@ This is a simple git repo showing how to use Gradle to build projects in several
 RESOURCES
 ---------
 
-	- [Gradle User Guide](http://www.gradle.org/docs/current/userguide/userguide.html)
-	
-	- [envsetup](https://github.com/Spidey01/envsetup) for shell functions.
+- [Gradle User Guide](http://www.gradle.org/docs/current/userguide/userguide.html)
+
+- [envsetup](https://github.com/Spidey01/envsetup) for shell functions.
 
 UNIX / LINUX / OS X
 -------------------
