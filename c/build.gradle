@@ -1,0 +1,31 @@
+
+apply plugin: 'c'
+
+description 'Hello, Gradle! -- in C.'
+
+executables {
+    // Define we want to make an executable from the main source set.
+    main { }
+}
+
+
+task build(description: 'Build all executables') {
+    dependsOn binaries.withType(ExecutableBinary).matching {
+        it.buildable
+    }
+}
+
+
+task run(type: Exec) {
+    // Find the correct task.
+    binaries.withType(ExecutableBinary) {
+        for (task in it.tasks) {
+            if (task.name == 'installMainExecutable') {
+                dependsOn task
+                executable task.runScript
+                break
+            }
+        }
+    }
+}
+
