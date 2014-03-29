@@ -1,0 +1,10 @@
+
+/**
+ * Shared configuration data for repositories.
+ */
+
+project.repositories {
+    mavenLocal()
+    mavenCentral()
+}
+

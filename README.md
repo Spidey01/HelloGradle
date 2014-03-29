@@ -1,8 +1,13 @@
 This is a simple git repo showing how to use Gradle to build projects in several languages.
 
-0. java/ 	-> Java example.
-1. c/ 		-> C example (minimalist).
-2. cpp/ 	-> C++ example (advanced).
+0. java/ 	            -> Java example.
+1. c/ 		            -> C example (minimalist).
+2. cpp/ 	            -> C++ example (advanced).
+3. advanced/            -> Supporting .gradle files.
+4. advanced/java\_lib   -> Java library example.
+5. advanced/java\_app   -> Java application example.
+6. advanced/cpp\_lib    -> C++ library example.
+7. advanced/cpp\_app    -> C++ application example.
 
 
 RESOURCES
@@ -11,6 +16,7 @@ RESOURCES
 - [Gradle User Guide](http://www.gradle.org/docs/current/userguide/userguide.html) for documentation.
 
 - [envsetup](https://github.com/Spidey01/envsetup) for shell functions.
+
 
 UNIX / LINUX / OS X
 -------------------

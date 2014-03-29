@@ -1,3 +1,7 @@
 include ':java'
 include ':c'
 include ':cpp'
+include ':advanced:java_lib'
+include ':advanced:java_app'
+include ':advanced:cpp_lib'
+include ':advanced:cpp_app'

@@ -1,0 +1,10 @@
+
+apply from: '../repositories.gradle'
+apply plugin: 'java'
+
+group = 'com.example.lib'
+// archivesBaseName = ''
+version = '1.0'
+description = 'Java library example.'
+
+

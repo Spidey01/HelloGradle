@@ -1,0 +1,14 @@
+
+apply plugin: 'cpp'
+apply from: '../native.gradle', to: project
+
+description 'C++ library example.'
+version '1.0'
+
+libraries {
+    main {
+        // name of the library.
+        baseName 'cpp_lib'
+    }
+}
+

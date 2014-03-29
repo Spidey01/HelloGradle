@@ -1,0 +1,41 @@
+/**
+ * Executable that uses a lib.
+ */
+
+apply plugin: 'cpp'
+apply from: '../native.gradle', to: project
+
+description 'C++ application example.'
+version = '1.0'
+
+
+executables {
+    main {
+        // name of the executable.
+        baseName 'cpp_app'
+    }
+}
+
+
+sources {
+    main {
+        cpp {
+            // dynamic link
+            lib project: ':advanced:cpp_lib', library: 'main'
+        }
+    }
+}
+
+
+task run(type: Exec, description: 'Runs this project as a native application') {
+    binaries.withType(ExecutableBinary) {
+        for (task in it.tasks) {
+            if (task.name == 'installReleaseMainExecutable') {
+                dependsOn task
+                executable task.runScript
+                break
+            }
+        }
+    }
+}
+

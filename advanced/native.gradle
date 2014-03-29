@@ -1,0 +1,37 @@
+
+/**
+ * Shared configuration data for native binaries.
+ */
+
+model {
+    buildTypes {
+        debug
+        release
+    }
+
+}
+
+binaries.all {
+    if (toolChain in VisualCpp) {
+        if (buildType == buildTypes.debug) {
+            cppCompiler.args("/MDd")
+        } else if (buildType == buildTypes.release) {
+            cppCompiler.args("/MD")
+        }
+    }
+}
+
+
+task build(description: 'Assembles and tests this project.') {
+    dependsOn binaries.withType(StaticLibraryBinary).matching {
+        it.buildable
+    }
+    dependsOn binaries.withType(SharedLibraryBinary).matching {
+        it.buildable
+    }
+    dependsOn binaries.withType(ExecutableBinary).matching {
+        it.buildable
+    }
+}
+
+

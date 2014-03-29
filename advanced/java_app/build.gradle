@@ -1,0 +1,15 @@
+
+apply from: '../repositories.gradle', to: project
+apply plugin: 'java'
+apply plugin:'application'
+
+group = 'com.example.app'
+mainClassName = group+'.App'
+// applicationName = archivesBaseName = "override name of stuff."
+version = '1.0'
+description = 'Java application example.'
+
+dependencies {
+    compile project(':advanced:java_lib')
+}
+
